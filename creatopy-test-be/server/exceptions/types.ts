@@ -1,0 +1,7 @@
+const Types = {
+    PARAMETER_VALIDATION: 'PARAMETER_VALIDATION',
+    BUSINESS: 'BUSINESS',
+    SERVER_ERROR: 'SERVER_ERROR'
+}
+
+export default Types;
