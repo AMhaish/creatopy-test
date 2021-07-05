@@ -35,7 +35,7 @@ interface Props {
 const HomePage: React.FC<Props> = ({ history }) => {
   const { loading, data } = useQuery<ItemQueryResult>(GET_ITEMS_QUERY, { fetchPolicy: "no-cache" });
   const [addItem, mutationResult] = useMutation<any>(ADD_ITEM_MUTATION, { fetchPolicy: "no-cache" });
-
+  const userAuth = useSelector<ReduxState, UserCall>((state) => state.userAuth);
   const [items, setItems] = useState<Item[]>([]);
   const [title, setTitle] = useState({ value: "", message: "", isValid: true });
 
@@ -78,7 +78,7 @@ const HomePage: React.FC<Props> = ({ history }) => {
 
   useEffect(() => {
     if (mutationResult?.data?.addItem) {
-      setItems(state => [...state, mutationResult.data.addItem]);
+      setItems(state => [...state, { ...mutationResult.data.addItem, user: { id: userAuth.id, email: userAuth.email } }]);
     }
   }, [mutationResult.data]);
 
@@ -97,7 +97,10 @@ const HomePage: React.FC<Props> = ({ history }) => {
                       <ListItemIcon>
                         <InboxIcon />
                       </ListItemIcon>
-                      <ListItemText primary={item.title} />
+                      <ListItemText
+                        primary={item.title}
+                        secondary={new Date(parseInt(item.createdAt as string)).toLocaleDateString('en-US') + " by " + item.user?.email}
+                      />
                     </ListItem>
                   ))
                 )}

@@ -10,8 +10,7 @@ function ItemsQueries(ioc: any) {
       type: GraphQLList(itemType),
       args: {},
       resolve: async function (root: any, args: any, context: any) {
-        let uid: string = context.user.id;
-        return await itemsService.getItems(uid);
+        return await itemsService.getItems();
       },
     },
   };

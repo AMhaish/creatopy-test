@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export interface ItemQueryResult {
     items: Item[];
 }
@@ -7,6 +9,7 @@ interface Item {
     title: string;
     createdAt?: string;
     updatedAt?: string;
+    user?: User;
 }
 
 export default Item;

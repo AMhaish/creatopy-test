@@ -5,6 +5,10 @@ export const GET_ITEMS_QUERY = gql`
     items {
       id
       title
+      createdAt
+      user {
+        email
+      }
     }
   }
 `;

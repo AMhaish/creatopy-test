@@ -5,6 +5,7 @@ mutation($title:String!){
     addItem(title: $title){
       id
       title
+      createdAt
     }
   }
 `;

@@ -19,14 +19,15 @@ export default class ItemsService {
     });
   }
 
-  async getItems(userId: string): Promise<Item[]> {
-    const items: Item[] = await this.itemsRepo.findAllByField(userId, Utils.nameOf<Item>("userId"));
+  async getItems(): Promise<Item[]> {
+    const items: Item[] = await this.itemsRepo.findAllIncludingUsers();
     return items.map((item) => ({
       id: item.id,
       title: item.title,
       createdAt: item.createdAt,
       updatedAt: item.updatedAt,
       userId: item.userId,
+      user: item.user,
     }));
   }
 }

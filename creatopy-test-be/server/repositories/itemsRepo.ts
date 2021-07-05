@@ -1,5 +1,6 @@
 import { v4 } from "uuid";
 import ItemRepo, { ItemCreationAttributes, ItemInstance } from "../../db/models/item";
+import UserRepo from "../../db/models/user";
 import { IRepo } from "./iRepo";
 
 export default class AccountRepo implements IRepo<ItemInstance> {
@@ -8,6 +9,14 @@ export default class AccountRepo implements IRepo<ItemInstance> {
     return ItemRepo.findAll({
       where: {
         [filedName]: value,
+      },
+    });
+  }
+
+  findAllIncludingUsers(): Promise<ItemInstance[]> {
+    return ItemRepo.findAll({
+      include: {
+        model: UserRepo, as: "user"
       },
     });
   }
